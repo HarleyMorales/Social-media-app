@@ -1,11 +1,11 @@
 import React from 'react';
- 
-function Comment(props){
-  return(
-    <div>
-      <p>{props.content}</p>
+
+function Comment({ content }) {
+  return (
+    <div className="comment">
+      <p>{content}</p>
     </div>
-  )
+  );
 }
 
-export default Comment
+export default Comment;

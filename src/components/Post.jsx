@@ -1,12 +1,22 @@
-
 import React, { useState } from 'react';
-import Comment from './Comment'; 
+import Comment from './Comment';
 
 function Post(props) {
-  const [likes, setLikes] = useState(0); 
+  const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [commentInput, setCommentInput] = useState('');
 
   const handleLike = () => {
     setLikes(likes + 1);
+  };
+
+  const handleCommentSubmit = (event) => {
+    event.preventDefault();
+    const newComment = commentInput.trim();
+    if (newComment) {
+      setComments([...comments, newComment]);
+      setCommentInput('');
+    }
   };
 
   return (
@@ -14,9 +24,19 @@ function Post(props) {
       <h3>{props.content}</h3>
       <p>Likes: {likes}</p>
       <button onClick={handleLike}>Like</button>
+      <form onSubmit={handleCommentSubmit}>
+        <input
+          type="text"
+          value={commentInput}
+          onChange={(e) => setCommentInput(e.target.value)}
+          placeholder="Add a comment..."
+        />
+        <button type="submit">Comment</button>
+      </form>
       <div className="comments">
-        <Comment />
-        <Comment />
+        {comments.map((comment, index) => (
+          <Comment key={index} content={comment} />
+        ))}
       </div>
     </div>
   );
