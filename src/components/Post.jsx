@@ -1,3 +1,4 @@
+// Post.jsx
 import React, { useState } from 'react';
 import Comment from './Comment';
 
@@ -24,6 +25,7 @@ function Post(props) {
       <h3>{props.content}</h3>
       <p>Likes: {likes}</p>
       <button onClick={handleLike}>Like</button>
+      
       <form onSubmit={handleCommentSubmit}>
         <input
           type="text"
@@ -33,6 +35,7 @@ function Post(props) {
         />
         <button type="submit">Comment</button>
       </form>
+
       <div className="comments">
         {comments.map((comment, index) => (
           <Comment key={index} content={comment} />
@@ -43,3 +46,4 @@ function Post(props) {
 }
 
 export default Post;
+

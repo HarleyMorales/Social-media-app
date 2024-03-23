@@ -1,26 +1,35 @@
 import React, { useState } from 'react';
 import CreatePostForm from './components/CreatePostForm';
-import Post from './components/Post';
+import Feed from './components/Feed';
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   const addNewPost = (content) => {
-    const newPost = { content, id: posts.length + 1 };
-    setPosts([...posts, newPost]);
+    const newPost = {
+      content: content,
+      id: Date.now(),
+      likes: 0,
+    };
+    setPosts([newPost, ...posts]);
+  };
+
+  const handleLike = (postId) => {
+    setPosts(
+      posts.map((post) =>
+        post.id === postId ? { ...post, likes: post.likes + 1 } : post
+      )
+    );
   };
 
   return (
     <div>
-      <h1>Fakebook!</h1>
+      <h1>Fakebook</h1>
       <CreatePostForm onPostCreate={addNewPost} />
-      <div>
-        {posts.map((post) => (
-          <Post key={post.id} content={post.content} />
-        ))}
-      </div>
+      <Feed posts={posts} onLike={handleLike} />
     </div>
   );
 }
 
 export default App;
+
